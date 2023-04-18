@@ -1,0 +1,86 @@
+enum OperateurEnum {
+	TRUE
+    FALSE
+}
+
+enum AnalyseEnum {
+	ACTUELLE
+    MOINS_UNE
+    MOINS_DEUX
+    MOINS_TROIS
+}
+
+
+
+entity Patient {
+	numeroSecu String
+    civilite String
+    nom String
+    prenom String
+    adresse String
+    codePostal String
+    ville String
+    telephone String
+    mail String
+    dateNaissance String
+    age String
+}
+
+entity AnalysePatient {
+	datePre Date
+}
+
+entity Rubrique {
+	nom String
+    description String
+}
+
+entity Analyse {
+	nom String
+    description String
+    borneBasse Float
+    borneHaute Float
+}
+entity ResultatPatient {
+	resultat Float
+}
+
+entity Conseil {
+	borneBasse Float
+    borneHaute Float
+    phrase String
+}
+
+entity ConseilComplexe {
+	phrase String
+}
+
+entity ConseilComplexeCondition {
+	borneBasse Float
+    borneHaute Float
+    analyseNumero AnalyseEnum
+}
+
+entity ConseilComplexeGroupeCondition {
+	operateur OperateurEnum
+}
+
+
+
+relationship OneToMany {
+	Patient to AnalysePatient
+    Analyse to Rubrique
+    Conseil to Analyse
+    AnalysePatient to ResultatPatient
+    ConseilComplexe to Rubrique
+    ConseilComplexeCondition to ConseilComplexeGroupeCondition 
+}
+
+relationship OneToOne {
+	ConseilComplexe to ConseilComplexeGroupeCondition
+	ResultatPatient to Analyse
+}    
+    
+    
+    
+    
